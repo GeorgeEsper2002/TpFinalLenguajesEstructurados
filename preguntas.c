@@ -33,13 +33,11 @@ void ingresarPreguntas(struct pregunta preguntas[T]){
     for (int i = 0; i < n; ++i)
     {
         do{
+
             do {
-                printf("Ingresa el numero de la pregunta:");
-                scanf(" %d",&preguntas[i].nPregunta);
-            } while (preguntas[i].nPregunta<0);
-            do {
-                printf("Ingresa el numero de capitulo de la pregunta %d",preguntas[i].nPregunta);
-            } while (preguntas[i].nCapitulo);
+                printf("Ingresa el numero de capitulo de la pregunta %d",preguntas[i].nCapitulo);
+                scanf(" %d",&preguntas[i].nCapitulo);
+            } while (preguntas[i].nCapitulo<0);
             do {
                 printf("Ingresa el nombre del capitulo %d",preguntas[i].nCapitulo);
                 fgets(preguntas[i].nombreCap,sizeof(preguntas[i].nombreCap),stdin); // Lee la entrada del usuario
@@ -49,50 +47,58 @@ void ingresarPreguntas(struct pregunta preguntas[T]){
             do {
                 printf("Ingresa el numero de subcapitulo de la pregunta %s :",preguntas[i].nombreCap);
                 scanf(" %d",&preguntas[i].nSubCapitulo);
-
             }while(preguntas[i].nSubCapitulo<0);
-
+            // Ingreso el nombre del subcapitulo
             do {
                 printf("Ingresa el nombre de subcapitulo %d capitulo %s y numero %d",preguntas[i].nSubCapitulo,preguntas[i].nombreCap,preguntas[i].nCapitulo);
                 fgets(preguntas[i].nombreSubCap,sizeof(preguntas[i].nombreCap),stdin);
                 preguntas[i].nombreSubCap[strcspn(preguntas[i].nombreSubCap, "\n")] = 0;
             } while (strlen(preguntas[i].nombreSubCap) == 0);
 
+            // Ingreso la pregunta
             do {
-                printf("Ingresa la pregunta del subcapitulo %s:",preguntas[i].nombreSubCap);
-                fgets(preguntas[i].pregunta,sizeof(preguntas[i].pregunta),stdin);
-                preguntas[i].pregunta[strcspn(preguntas[i].pregunta, "\n")]=0;
-            } while (strlen(preguntas[i].pregunta) == 0);
-            do {
-                do{
-                    printf("%s\n",preguntas[i].pregunta);
-                    printf("Ingresa la respuesta 1:");
-                    fgets(preguntas[i].opciones[0],sizeof(preguntas[i].pregunta),stdin);
-                    preguntas[i].opciones[0][strcspn(preguntas[i].opciones[0], "\n")] = 0;
-                } while (strlen(preguntas[i].opciones[0] ) == 0);
-                /*do{
+                printf("Ingresa el numero de la pregunta:");
+                fgets(preguntas[i].opciones[0],sizeof(preguntas[i].opciones[0]),stdin);
+                preguntas[i].opciones[0][strcspn(preguntas[i].opciones[0], "\n")]=0;
+            } while (strlen(preguntas[i].opciones[0]) == 0);
 
-                } while ();
-                do{
+            // Opcion 1
+            do{
+                printf("%s\n",preguntas[i].opciones[0]);
+                printf("Ingresa la respuesta 1:");
+                fgets(preguntas[i].opciones[1],sizeof(preguntas[i].opciones[1]),stdin);
+                preguntas[i].opciones[1][strcspn(preguntas[i].opciones[1], "\n")] = 0;
+            } while (strlen(preguntas[i].opciones[1] ) == 0);
+            // Opcion 2
+            do{
+                printf("%s\n",preguntas[i].opciones[0]);
+                printf("Ingresa la respuesta 2:");
+                fgets(preguntas[i].opciones[2],sizeof(preguntas[i].opciones[2]),stdin);
+                preguntas[i].opciones[2][strcspn(preguntas[i].opciones[2], "\n")] = 0;
 
-                } while();
-                do{
+            } while (strlen(preguntas[i].opciones[1] ) == 0);
+            // Opcion 3
+            do{
+                printf("%s\n",preguntas[i].opciones[0]);
+                printf("Ingresa la respuesta 3:");
+                fgets(preguntas[i].opciones[3],sizeof(preguntas[i].opciones[3]),stdin);
+                preguntas[i].opciones[3][strcspn(preguntas[i].opciones[3], "\n")] = 0;
 
-                }while();
-                do{
-
-                } while ();
-
-            } while ();
-                 */
-
-
-
-
-
-
-
-
+            } while(strlen(preguntas[i].opciones[3] ) == 0);
+            // Opcion 4
+            do{
+                printf("%s\n",preguntas[i].opciones[0]);
+                printf("Ingresa la respuesta 4:");
+                fgets(preguntas[i].opciones[4],sizeof(preguntas[i].opciones[4]),stdin);
+                preguntas[i].opciones[4][strcspn(preguntas[i].opciones[0], "\n")] = 0;
+            }while(strlen(preguntas[i].opciones[4] ) == 0);
+            // Opcion Correcta
+            do{
+                printf("%s\n",preguntas[i].opciones[0]);
+                printf("Ingresa la respuesta correcta:");
+                fgets(preguntas[i].opciones[5],sizeof(preguntas[i].opciones[5]),stdin);
+                preguntas[i].opciones[5][strcspn(preguntas[i].opciones[0], "\n")] = 0;
+            }while (strlen(preguntas[i].opciones[5] ) == 0);
             do{
                 printf("Desea seguir ingresando preguntas 0:NO 1:SI? :");
                 scanf(" %d",&bandera);
