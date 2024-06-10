@@ -1,3 +1,17 @@
-# ninja log v5
-6	137	7392347176572111	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
-138	336	7392347178436791	tpFinalC.exe	d8293ce4393b3dab
+# ninja log v6
+21	102	7396710392703435	CMakeFiles/tpFinalC.dir/preguntas.c.obj	d558d87c28388f7
+7	117	7396712324830591	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
+117	268	7396712325937628	tpFinalC.exe	8a1647cbe5e48793
+18	146	7396754279280241	CMakeFiles/tpFinalC.dir/examenes.c.obj	e4f5a7a2f9008113
+23	159	7396754279330103	CMakeFiles/tpFinalC.dir/correcciones.c.obj	c3ad41f6fcc1d7fd
+29	172	7396754279389942	CMakeFiles/tpFinalC.dir/persistencia.c.obj	82eeba70125caf7e
+23	137	7396754351174717	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
+138	298	7396754352333885	tpFinalC.exe	ddb4aadeef842847
+21	134	7396756627014736	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
+135	297	7396756628151693	tpFinalC.exe	ddb4aadeef842847
+23	232	7396757567050132	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
+233	397	7396757569154502	tpFinalC.exe	ddb4aadeef842847
+22	135	7396759295377097	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
+136	284	7396759296513900	tpFinalC.exe	ddb4aadeef842847
+37	172	7396760926588485	CMakeFiles/tpFinalC.dir/main.c.obj	c81b3faadc4deae7
+173	435	7396760927949943	tpFinalC.exe	ddb4aadeef842847
