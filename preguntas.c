@@ -3,9 +3,9 @@
  * con el apartado 1 del trabajo, ingresar las preguntas y almacenarlas.
  */
 /*
- * struct pregunta{
+ * struct Pregunta{
     int nPregunta;
-    char pregunta;
+    char Pregunta;
     int nCapitulo;
     char nombreCap[30];
     int nSubCapitulo;
@@ -21,12 +21,12 @@
 #include "main.c" // con esto se incluye el archivo main.c y todos sus contenidos
 #define T 1000
 // Declaracion Funciones
-void ingresarPreguntas(struct pregunta preguntas[T]);
+void ingresarPreguntas(Pregunta preguntas[T]);
 
 
 // Definicion Funciones
 
-void ingresarPreguntas(struct pregunta preguntas[T]){
+void ingresarPreguntas(Pregunta preguntas[T]){
     int n,bandera;
     printf("Ingresa la cantidad de preguntas:");
     scanf(" %d",&n);
@@ -35,7 +35,7 @@ void ingresarPreguntas(struct pregunta preguntas[T]){
         do{
 
             do {
-                printf("Ingresa el numero de capitulo de la pregunta %d",preguntas[i].nCapitulo);
+                printf("Ingresa el numero de capitulo de la Pregunta %d",preguntas[i].nCapitulo);
                 scanf(" %d",&preguntas[i].nCapitulo);
             } while (preguntas[i].nCapitulo<0);
             do {
@@ -45,7 +45,7 @@ void ingresarPreguntas(struct pregunta preguntas[T]){
             } while (strlen(preguntas[i].nombreCap) == 0); // sigue iterando si el string esta vacio.
 
             do {
-                printf("Ingresa el numero de subcapitulo de la pregunta %s :",preguntas[i].nombreCap);
+                printf("Ingresa el numero de subcapitulo de la Pregunta %s :",preguntas[i].nombreCap);
                 scanf(" %d",&preguntas[i].nSubCapitulo);
             }while(preguntas[i].nSubCapitulo<0);
             // Ingreso el nombre del subcapitulo
@@ -55,9 +55,9 @@ void ingresarPreguntas(struct pregunta preguntas[T]){
                 preguntas[i].nombreSubCap[strcspn(preguntas[i].nombreSubCap, "\n")] = 0;
             } while (strlen(preguntas[i].nombreSubCap) == 0);
 
-            // Ingreso la pregunta
+            // Ingreso la Pregunta
             do {
-                printf("Ingresa el numero de la pregunta:");
+                printf("Ingresa el numero de la Pregunta:");
                 fgets(preguntas[i].opciones[0],sizeof(preguntas[i].opciones[0]),stdin);
                 preguntas[i].opciones[0][strcspn(preguntas[i].opciones[0], "\n")]=0;
             } while (strlen(preguntas[i].opciones[0]) == 0);
