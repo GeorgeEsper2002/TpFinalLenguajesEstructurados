@@ -4,7 +4,10 @@ project(tpFinalC C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(tpFinalC main.c
-        preguntas.c
-        examenes.c
-        correcciones.c
-        persistencia.c)
+#        preguntas.c
+#        examenes.c
+#        correcciones.c
+#        persistencia.c
+        prueba.c
+        functions.h
+)
