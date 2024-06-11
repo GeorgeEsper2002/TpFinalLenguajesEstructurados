@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "functions.h"
 /*
  * Este archivo se va a encargar de ejecutar el programa invocando a todas las funciones
  * y va a contener un menu
@@ -14,22 +15,14 @@
     //strcat(saludo,);
 */
 // Declaraciones de constantes
-#define T 1000
-#define MAX_LONG_PREGUNTA 30
+const int T=1000;
 // Declaraciones de estructuras
-struct pregunta{
-    int nPregunta;
-    int nCapitulo;
-    char nombreCap[30];
-    int nSubCapitulo;
-    char nombreSubCap[30];
-    char opciones[6][MAX_LONG_PREGUNTA];
-};
-struct examen{
+
+/*struct examen{ //
     int nExamen;
     int fecha;
     int cantidadPreguntas;
-    struct pregunta preguntas[T];
+    Pregunta preguntas[T];
 };
 struct correccion{
     int nExamen;
@@ -37,83 +30,80 @@ struct correccion{
     struct examen examenes[T];
 };
 
-
+*/
 // Declaraciones de funciones
-void menu();
+int menu();
 void menuPreguntas();
 void menuExamenes();
 void menuCorreciones();
 
 
 int main()
-{
-    int opcion,opcionPreg,opcionExam,opcionCorrc;
-    struct pregunta preguntas[T];
-    struct examen examenes[T];
-    struct correccion correcciones[T];
-    do
+{   prueba();
+    int opcion;
+    Pregunta preguntas[T];
+    //struct examen examenes[T];
+    //struct correccion correcciones[T];
+    /*do
     {
-        menu();
-        scanf(" %d",&opcion);
-        if(opcion==1)
-        {   // Opcion 1 administracion de preguntas
-            printf("Has ingresado 1 - Administracion de preguntas.\n");
-            do {
+        opcion=menu();
+        switch (menu()) {
+            case 1:
                 menuPreguntas();
-                scanf(" %d",&opcionPreg);
-                if (opcionPreg==0){
-                    break;
-                }
-                else if(opcionPreg==1)
-                {
-                                    ;
-                }
-                else if(opcionPreg==2)
-                {
-                                    ;
-                }
-                else if(opcionPreg==3){
-                                    ;
-                }
-            } while (opcionPreg<0||opcionPreg>3);
-
-        }
-        else if(opcion==2)
-        {
-            // Opcion 2 administracion de examenes
-            printf("Has ingresado 2 - Administracion de examenes.\n");
-            menuExamenes();
-        }
-        else if(opcion==3)
-        {
-            // Opcion 3, administracion de correcciones
-            printf("Has ingresado 3 - Administracion de correciones.\n");
-            menuCorreciones();
+                break;
+            case 2:
+                menuExamenes();
+                break;
+            case 3:
+                menuCorreciones();
+                break;
+            case 0:
+                printf("FIN PROGRAMA.\n");
+                break;
+            default:
+                printf("Opcion incorrecta.");
+                break;
         }
 
     }while (opcion!=0);// corre hasta que se ingrese 0
+    */
     return 0;
-
 }
-void menu()
-{
+
+
+int menu()
+{   int opcion;
     printf("\nPROGRAMA BANCO DE PREGUNTAS\n");
     printf("Opciones\n");
     printf("1-Administracion del Banco de preguntas.\n");
     printf("2-Administracion de Examenes.\n");
     printf("3-Administracion de Correcciones.\n");
     printf("0-FIN PROGRAMA\n");
-    printf("Ingresa una opcion:");
+    do {
+        printf("Ingresa una opcion:");
+        scanf(" %d",&opcion);
+        if(opcion<0 || opcion>3){
+            printf("Opcion Invalida.");
+        }
+    } while (opcion<0 || opcion>3);
+    return opcion;
 }
 
-void menuPreguntas(){
+void menuPreguntas(){// hacer logica
+    int opcion;
     printf("Menu administracion de preguntas\n");
     printf("1-Agregar nuevas preguntas.\n");
     printf("2-Modificar preguntas existentes.\n");
     printf("3-Mostrar preguntas.\n");
     printf("0-Fin seccion preguntas.\n");
     printf("Ingresa una opcion:");
-    
+    do {
+        printf("Ingresa una opcion:");
+        scanf(" %d",&opcion);
+        if(opcion<0 || opcion>3){
+            printf("Opcion Invalida.");
+        }
+    } while (opcion<0 || opcion>3);
 }
 void menuExamenes(){
     printf("Menu Administracion de Examenes.\n");
