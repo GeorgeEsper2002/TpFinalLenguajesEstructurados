@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.28"
+						"string" : "3.27"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "tpFinalC::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tpFinalC-Debug-76d25b917aa3aa588609.json",
+					"jsonFile" : "target-tpFinalC-Debug-c278cf5707f8023bfc98.json",
 					"name" : "tpFinalC",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Usuario/Desktop/tpFinalC/cmake-build-debug",
-		"source" : "C:/Users/Usuario/Desktop/tpFinalC"
+		"build" : "D:/Usuario/Desktop/TpFinalC/TpFinalLenguajesEstructurados/cmake-build-debug",
+		"source" : "D:/Usuario/Desktop/TpFinalC/TpFinalLenguajesEstructurados"
 	},
 	"version" : 
 	{

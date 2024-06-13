@@ -33,40 +33,37 @@ struct correccion{
 */
 // Declaraciones de funciones
 int menu();
-void menuPreguntas();
-void menuExamenes();
-void menuCorreciones();
+void menuPreguntas(Pregunta preguntas[T]);
+void menuExamenes(Examen examenes[T]);
+void menuCorreciones(Correccion correcciones[T]);
 
 
 int main()
-{   prueba();
+{
     int opcion;
     Pregunta preguntas[T];
-    //struct examen examenes[T];
-    //struct correccion correcciones[T];
-    /*do
+    Examen examenes[T];
+    Correccion correcciones[T];
+    do
     {
         opcion=menu();
-        switch (menu()) {
+        switch (opcion)
+        {
             case 1:
-                menuPreguntas();
+                menuPreguntas(preguntas);
                 break;
             case 2:
-                menuExamenes();
+                menuExamenes(examenes);
                 break;
             case 3:
-                menuCorreciones();
+                menuCorreciones(correcciones);
                 break;
             case 0:
                 printf("FIN PROGRAMA.\n");
                 break;
-            default:
-                printf("Opcion incorrecta.");
-                break;
         }
 
     }while (opcion!=0);// corre hasta que se ingrese 0
-    */
     return 0;
 }
 
@@ -89,7 +86,8 @@ int menu()
     return opcion;
 }
 
-void menuPreguntas(){// hacer logica
+// Funcion para submenu preguntas
+void menuPreguntas(Pregunta preguntas[T]){// hacer switch
     int opcion;
     printf("Menu administracion de preguntas\n");
     printf("1-Agregar nuevas preguntas.\n");
@@ -100,18 +98,32 @@ void menuPreguntas(){// hacer logica
     do {
         printf("Ingresa una opcion:");
         scanf(" %d",&opcion);
-        if(opcion<0 || opcion>3){
-            printf("Opcion Invalida.");
+        switch (opcion)
+        {
+            case 1:
+                ingresarPreguntas(preguntas);
+                break;
+
+            case 2:
+                modificarPreguntas(preguntas);
+                break;
+            case 3:
+                mostrarPreguntas(preguntas);
+                break;
+            case 0:
+                printf("Fin seccion preguntas.\n");
+                break;
         }
+
     } while (opcion<0 || opcion>3);
 }
-void menuExamenes(){
+void menuExamenes(Examen examenes[T]){
     printf("Menu Administracion de Examenes.\n");
     printf("1-Generar Examenes.\n");
     printf("0-Salir del menu examenes.\n");
 
 }
-void menuCorreciones(){
+void menuCorreciones(Correccion correcciones[T]){
     printf("Menu administracion de correcciones.\n");
     printf("1-Corregir Examenes.\n");
     printf("0-Salir del menu correciones.");

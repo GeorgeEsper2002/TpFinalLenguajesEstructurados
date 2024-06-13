@@ -3,15 +3,6 @@
  * con el apartado 1 del trabajo, ingresar las preguntas y almacenarlas.
  */
 /*
- * struct Pregunta{
-    int nPregunta;
-    char Pregunta;
-    int nCapitulo;
-    char nombreCap[30];
-    int nSubCapitulo;
-    char nombreSubCap[30];
-    char opciones[5][30];
-};
     int n;
     scanf(" %i",&n);
     printf("%i",n);
@@ -22,12 +13,14 @@
 #define T 1000
 // Declaracion Funciones
 void ingresarPreguntas(Pregunta preguntas[T]);
-
-
+void guardarPreguntas(Pregunta preguntas[T]);
 // Definicion Funciones
-
+/*
+ * una opcion del menu que permita listar las preguntas ingresadas por capitulo y subcapitulo
+ * y de ahi mirar las preguntas almacenadas.
+ */
 void ingresarPreguntas(Pregunta preguntas[T]){
-    int n,bandera;
+    int n,bandera,total_preguntas=0;
     printf("Ingresa la cantidad de preguntas:");
     scanf(" %d",&n);
     for (int i = 0; i < n; ++i)
@@ -35,12 +28,13 @@ void ingresarPreguntas(Pregunta preguntas[T]){
         do{
 
             do {
-                printf("Ingresa el numero de capitulo de la Pregunta %d",preguntas[i].nCapitulo);
+                printf("Ingresa el numero de capitulo de la Pregunta %d",i+1);
                 scanf(" %d",&preguntas[i].nCapitulo);
             } while (preguntas[i].nCapitulo<0);
             do {
                 printf("Ingresa el nombre del capitulo %d",preguntas[i].nCapitulo);
-                fgets(preguntas[i].nombreCap,sizeof(preguntas[i].nombreCap),stdin); // Lee la entrada del usuario
+                fflush(stdin);
+                gets(preguntas[i].nombreCap,sizeof(preguntas[i].nombreCap),stdin); // Lee la entrada del usuario
                 preguntas[i].nombreCap[strcspn(preguntas[i].nombreCap, "\n")] = 0; // Elimina el enter al ingresar
             } while (strlen(preguntas[i].nombreCap) == 0); // sigue iterando si el string esta vacio.
 
@@ -84,7 +78,7 @@ void ingresarPreguntas(Pregunta preguntas[T]){
                 fgets(preguntas[i].opciones[3],sizeof(preguntas[i].opciones[3]),stdin);
                 preguntas[i].opciones[3][strcspn(preguntas[i].opciones[3], "\n")] = 0;
 
-            } while(strlen(preguntas[i].opciones[3] ) == 0);
+            } while(strlen(preguntas[i].opciones[3]) == 0);
             // Opcion 4
             do{
                 printf("%s\n",preguntas[i].opciones[0]);
@@ -109,5 +103,35 @@ void ingresarPreguntas(Pregunta preguntas[T]){
         } while (bandera!=0);
     }
 
+
+}
+// Funcion que guarda las preguntas en un archivo
+void guardarPreguntas(Pregunta preguntas[T]){
+    FILE *archivo;
+    archivo=fopen("preguntas.txt","w");
+    if (archivo==NULL){
+        printf("Error al abrir el archivo.");
+        exit(1);
+    }
+    for (int i = 0; i < T; ++i)
+    {
+        if (preguntas[i].nPregunta==0) {
+            break;
+        }
+            fprintf(archivo, "%d;%d;%s;%d;%s;%s;%s;%s;%s;%s;%s;\n",
+                    preguntas[i].nPregunta,
+                    preguntas[i].nCapitulo,
+                    preguntas[i].nombreCap,
+                    preguntas[i].nSubCapitulo,
+                    preguntas[i].nombreSubCap,
+                    preguntas[i].opciones[0],
+                    preguntas[i].opciones[1],
+                    preguntas[i].opciones[2],
+                    preguntas[i].opciones[3],
+                    preguntas[i].opciones[4],
+                    preguntas[i].opciones[5]);
+
+    }
+    fclose(archivo);
 
 }
