@@ -4,29 +4,29 @@
 		"generator" : 
 		{
 			"multiConfig" : false,
-			"name" : "MinGW Makefiles"
+			"name" : "Ninja"
 		},
 		"paths" : 
 		{
 			"cmake" : "C:/Users/Usuario/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cmake.exe",
 			"cpack" : "C:/Users/Usuario/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cpack.exe",
 			"ctest" : "C:/Users/Usuario/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/ctest.exe",
-			"root" : "C:/Users/Usuario/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.27"
+			"root" : "C:/Users/Usuario/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.28"
 		},
 		"version" : 
 		{
 			"isDirty" : false,
 			"major" : 3,
-			"minor" : 27,
-			"patch" : 8,
-			"string" : "3.27.8",
+			"minor" : 28,
+			"patch" : 1,
+			"string" : "3.28.1",
 			"suffix" : ""
 		}
 	},
 	"objects" : 
 	[
 		{
-			"jsonFile" : "codemodel-v2-36845ee6cc8ab5ec8fbb.json",
+			"jsonFile" : "codemodel-v2-d9e1bed18ea46af9fe26.json",
 			"kind" : "codemodel",
 			"version" : 
 			{
@@ -35,7 +35,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cache-v2-59d9a74875f0583d49d2.json",
+			"jsonFile" : "cache-v2-f89765c13bf76de3ec8f.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -44,7 +44,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cmakeFiles-v1-552af25f0ec445ba6ad9.json",
+			"jsonFile" : "cmakeFiles-v1-4a7269dfaf589da149c6.json",
 			"kind" : "cmakeFiles",
 			"version" : 
 			{
@@ -66,7 +66,7 @@
 	{
 		"cache-v2" : 
 		{
-			"jsonFile" : "cache-v2-59d9a74875f0583d49d2.json",
+			"jsonFile" : "cache-v2-f89765c13bf76de3ec8f.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -76,7 +76,7 @@
 		},
 		"cmakeFiles-v1" : 
 		{
-			"jsonFile" : "cmakeFiles-v1-552af25f0ec445ba6ad9.json",
+			"jsonFile" : "cmakeFiles-v1-4a7269dfaf589da149c6.json",
 			"kind" : "cmakeFiles",
 			"version" : 
 			{
@@ -86,7 +86,7 @@
 		},
 		"codemodel-v2" : 
 		{
-			"jsonFile" : "codemodel-v2-36845ee6cc8ab5ec8fbb.json",
+			"jsonFile" : "codemodel-v2-d9e1bed18ea46af9fe26.json",
 			"kind" : "codemodel",
 			"version" : 
 			{

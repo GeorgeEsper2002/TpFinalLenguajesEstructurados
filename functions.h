@@ -3,15 +3,34 @@
 
 #define MAX_LONG_PREGUNTA 100
 #define C 1000
-extern const int T;
+extern const int MAX_PREGUNTAS;
+
 typedef struct{
-    int nPregunta;
-    int nCapitulo;
-    char nombreCap[30];
-    int nSubCapitulo;
-    char nombreSubCap[30];
-    char opciones[6][MAX_LONG_PREGUNTA];
+    int id;
+    char nombreSubCap[50];
+    int idCapitulo;
+}SubCapitulo;
+
+
+typedef struct{
+    int id;
+    char nombreCap[50];
+}Capitulo;
+
+
+typedef struct{
+    int id;
+    Capitulo capitulo;
+    SubCapitulo subCapitulo;
+    char pregunta[200];
+    char opcion1[100];
+    char opcion2[100];
+    char opcion3[100];
+    char opcion4[100];
+    int respuestaCorrecta;
 }Pregunta;
+
+
 
 typedef struct{
     int nExamen;
@@ -27,10 +46,11 @@ typedef struct{
 }Correccion;
 
 //Functions of questions handling
-void ingresarPreguntas(Pregunta preguntas[T]);
-void guardarPreguntas(Pregunta preguntas[T]);
-void mostrarPreguntas(Pregunta preguntas[T]);
-void modificarPreguntas(Pregunta preguntas[T]);
-void prueba();
-
+void menuPreguntas();
+void menuExamenes();
+void menuCorreciones();
+void menuModificarPregunta();
+Pregunta ObtenerPreguntaPorId(int *idPregunta);
+void modificarPregunta();
+int menu();
 #endif //TPFINALC_FUNCTIONS_H

@@ -1,3 +1,3 @@
-D:/Usuario/Desktop/TpFinalC/TpFinalLenguajesEstructurados/cmake-build-debug/CMakeFiles/tpFinalC.dir
-D:/Usuario/Desktop/TpFinalC/TpFinalLenguajesEstructurados/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Usuario/Desktop/TpFinalC/TpFinalLenguajesEstructurados/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Usuario/Desktop/tpFinalC/cmake-build-debug/CMakeFiles/tpFinalC.dir
+C:/Users/Usuario/Desktop/tpFinalC/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Usuario/Desktop/tpFinalC/cmake-build-debug/CMakeFiles/rebuild_cache.dir

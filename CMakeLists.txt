@@ -10,4 +10,6 @@ add_executable(tpFinalC main.c
         persistencia.c
         prueba.c
         functions.h
+        menu.c
+        persistencia.h
 )

@@ -55,8 +55,38 @@ build CMakeFiles/tpFinalC.dir/main.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C
   OBJECT_DIR = CMakeFiles\tpFinalC.dir
   OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
 
+build CMakeFiles/tpFinalC.dir/preguntas.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C$:/Users/Usuario/Desktop/tpFinalC/preguntas.c || cmake_object_order_depends_target_tpFinalC
+  DEP_FILE = CMakeFiles\tpFinalC.dir\preguntas.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\tpFinalC.dir
+  OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
+
+build CMakeFiles/tpFinalC.dir/examenes.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C$:/Users/Usuario/Desktop/tpFinalC/examenes.c || cmake_object_order_depends_target_tpFinalC
+  DEP_FILE = CMakeFiles\tpFinalC.dir\examenes.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\tpFinalC.dir
+  OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
+
+build CMakeFiles/tpFinalC.dir/correcciones.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C$:/Users/Usuario/Desktop/tpFinalC/correcciones.c || cmake_object_order_depends_target_tpFinalC
+  DEP_FILE = CMakeFiles\tpFinalC.dir\correcciones.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\tpFinalC.dir
+  OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
+
+build CMakeFiles/tpFinalC.dir/persistencia.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C$:/Users/Usuario/Desktop/tpFinalC/persistencia.c || cmake_object_order_depends_target_tpFinalC
+  DEP_FILE = CMakeFiles\tpFinalC.dir\persistencia.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\tpFinalC.dir
+  OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
+
 build CMakeFiles/tpFinalC.dir/prueba.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C$:/Users/Usuario/Desktop/tpFinalC/prueba.c || cmake_object_order_depends_target_tpFinalC
   DEP_FILE = CMakeFiles\tpFinalC.dir\prueba.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\tpFinalC.dir
+  OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
+
+build CMakeFiles/tpFinalC.dir/menu.c.obj: C_COMPILER__tpFinalC_unscanned_Debug C$:/Users/Usuario/Desktop/tpFinalC/menu.c || cmake_object_order_depends_target_tpFinalC
+  DEP_FILE = CMakeFiles\tpFinalC.dir\menu.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\tpFinalC.dir
   OBJECT_FILE_DIR = CMakeFiles\tpFinalC.dir
@@ -69,7 +99,7 @@ build CMakeFiles/tpFinalC.dir/prueba.c.obj: C_COMPILER__tpFinalC_unscanned_Debug
 #############################################
 # Link the executable tpFinalC.exe
 
-build tpFinalC.exe: C_EXECUTABLE_LINKER__tpFinalC_Debug CMakeFiles/tpFinalC.dir/main.c.obj CMakeFiles/tpFinalC.dir/prueba.c.obj
+build tpFinalC.exe: C_EXECUTABLE_LINKER__tpFinalC_Debug CMakeFiles/tpFinalC.dir/main.c.obj CMakeFiles/tpFinalC.dir/preguntas.c.obj CMakeFiles/tpFinalC.dir/examenes.c.obj CMakeFiles/tpFinalC.dir/correcciones.c.obj CMakeFiles/tpFinalC.dir/persistencia.c.obj CMakeFiles/tpFinalC.dir/prueba.c.obj CMakeFiles/tpFinalC.dir/menu.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\tpFinalC.dir
