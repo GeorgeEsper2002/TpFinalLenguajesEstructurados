@@ -3,6 +3,7 @@
 #include "functions.h"
 int menu()
 {   int opcion;
+    setbuf(stdout, 0); // Limpia el buffer de salida
     printf("\nPROGRAMA BANCO DE PREGUNTAS\n");
     printf("Opciones\n");
     printf("1-Administracion del Banco de preguntas.\n");
