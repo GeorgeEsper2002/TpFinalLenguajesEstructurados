@@ -8,7 +8,6 @@ extern const int MAX_PREGUNTAS;
 typedef struct{
     int id;
     char nombreSubCap[50];
-    int idCapitulo;
 }SubCapitulo;
 
 
@@ -51,6 +50,11 @@ void menuExamenes();
 void menuCorreciones();
 void menuModificarPregunta();
 Pregunta ObtenerPreguntaPorId(int *idPregunta);
+void ingresarPreguntas();
+void subMenuMostrarPreguntas();
+void mostrarPreguntas(int idCapitulo,int idSubCapitulo,char nombreCapitulo[50],char nombreSubCapitulo[50]);
+void menuModificarPregunta();
+void mostrarPregunta(int *idPregunta);
 void modificarPregunta();
 int menu();
 #endif //TPFINALC_FUNCTIONS_H
