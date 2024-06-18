@@ -1,1 +1,5 @@
-2,2,3,4,hola,son todas putas?,si,si,puede ser,si,1
+1;1;Capitulo 1;1;Fisica;El agua moja?;Si;No;Tal vez;No se;1;
+6;8;Quimica;7;Soluciones;las soluciones son mezclas?;si;no;no se;no tengo idea;3
+4;3;Matematica;2;Funciones;Las funciones se pueden usar en la realidad?;si;re si;no;no se;2
+3;1;Capitulo 1;1;Fisica;prueba;prueba;prueba;prueba;prueba;1
+5;8;Quimica;7;Soluciones;las mezclas heterogeneas es posible distinguir sus elementos? ;si;no;tal vez;no se;1
