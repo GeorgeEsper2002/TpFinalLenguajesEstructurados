@@ -1,28 +1,22 @@
 
 #include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include "functions.h"
 #include "persistencia.h"
 // Declaracion Funciones
-void ingresarPreguntas();
-void guardarPreguntas();
-void mostrarPreguntas();
-void menuModificarPregunta();
-void mostrarPregunta(int *idPregunta);
+
 
 /*
  * una opcion del menu que permita listar las preguntas ingresadas por capitulo y subcapitulo
  * y de ahi mirar las preguntas almacenadas.
  */
 void menuPreguntas(){
-    int opcion;
+    int opcion=1;
     printf("Menu administracion de preguntas\n");
     printf("1-Agregar nuevas preguntas.\n");
     printf("2-Modificar preguntas existentes.\n");
     printf("3-Mostrar preguntas.\n");
     printf("0-Fin seccion preguntas.\n");
-    printf("Ingresa una opcion:");
     do {
         printf("Ingresa una opcion:");
         scanf(" %d",&opcion);
@@ -31,12 +25,11 @@ void menuPreguntas(){
             case 1:
                 ingresarPreguntas();
                 break;
-
             case 2:
                 menuModificarPregunta();
                 break;
             case 3:
-                //mostrarPreguntas();
+                subMenuMostrarPreguntas();
                 break;
             case 0:
                 printf("Fin seccion preguntas.\n");
@@ -136,43 +129,72 @@ void ingresarPreguntas(Pregunta preguntas[T]){
 
 }
 */
+
+
+
+
+
+
+// Funcion para ingresar preguntas
 void ingresarPreguntas(){
     Pregunta nuevaPregunta;
-    int opcion;
+    int opcion,banderaPregunta,banderaCapitulo,banderaSubCapitulo;
     printf("1:Ingresar Preguntas\n0:Salir\n");
+    printf("Ingresa una opcion: ");
     scanf(" %d",&opcion);
     while(opcion!=0){
 
         do {
             printf("Ingresa el id de la pregunta: ");
             scanf(" %d",&nuevaPregunta.id);
-            // hacer funcion para ver si existe el id
+            banderaPregunta=verSiExistePregunta(nuevaPregunta.id);
+            while(banderaPregunta==1){
+                printf("El id de la pregunta ya existe\n");
+                printf("Ingresa el id de la pregunta: ");
+                scanf(" %d",&nuevaPregunta.id);
+                banderaPregunta=verSiExistePregunta(nuevaPregunta.id);
+            }
         } while (nuevaPregunta.id<0);
 
+
         do {
-            printf("Ingresa el numero de capitulo: ");
+            printf("Ingresa el numero de capitulo:");
             scanf(" %d",&nuevaPregunta.capitulo.id);
-            // Hacer funcion para ver si existe el id
+            if (verSiExisteCapitulo(nuevaPregunta.capitulo.id)==1){
+             //Funcion para traer el capitulo por id y copiar el nombre en la nueva pregunta.
+             printf("Nombre del capitulo: %s\n",buscarCapituloPorId(nuevaPregunta.capitulo.id).nombreCap);
+             strcpy(nuevaPregunta.capitulo.nombreCap,buscarCapituloPorId(nuevaPregunta.capitulo.id).nombreCap);
+            }
+            else if (nuevaPregunta.capitulo.id>0){
+                do {
+                    printf("Ingresa el nombre del capitulo %d: ",nuevaPregunta.capitulo.id);
+                    scanf(" %[^\n]",nuevaPregunta.capitulo.nombreCap);
+                } while (strlen(nuevaPregunta.capitulo.nombreCap)<0);
+            }
+            else{
+                printf("El id del capitulo no puede ser negativo\n");
+            }
         } while (nuevaPregunta.capitulo.id<0);
-
-
-        do {
-            printf("Ingresa el nombre del capitulo %d: ",nuevaPregunta.capitulo.id);
-            scanf(" %[^\n]",nuevaPregunta.capitulo.nombreCap);
-        } while (strlen(nuevaPregunta.capitulo.nombreCap)<0);
-
 
         do {
             printf("Ingresa el numero del subcapitulo: ");
             scanf(" %d",&nuevaPregunta.subCapitulo.id);
+            // Funcion para ver si existe un subcapitulo existe
+           if(verSiExisteSubCapitulo(nuevaPregunta.capitulo.id,nuevaPregunta.subCapitulo.id)==1){
+               //Funcion para traer el subcapitulo por id y copiar el nombre en la nueva pregunta.
+               printf("Nombre del subcapitulo: %s\n",buscarSubCapituloPorId(nuevaPregunta.capitulo.id,nuevaPregunta.subCapitulo.id).nombreSubCap);
+               strcpy(nuevaPregunta.subCapitulo.nombreSubCap,buscarSubCapituloPorId(nuevaPregunta.capitulo.id,nuevaPregunta.subCapitulo.id).nombreSubCap);
+           }
+           else if (nuevaPregunta.subCapitulo.id>0){
+               do {
+                   printf("Ingresa el nombre del subcapitulo %d: ",nuevaPregunta.subCapitulo.id);
+                   scanf(" %[^\n]",nuevaPregunta.subCapitulo.nombreSubCap);
+               } while (strlen(nuevaPregunta.subCapitulo.nombreSubCap)<0);
+           }
+           else{
+               printf("El id del subcapitulo no puede ser negativo\n");
+           }
         } while (nuevaPregunta.subCapitulo.id<0);
-
-        nuevaPregunta.subCapitulo.idCapitulo=nuevaPregunta.capitulo.id;
-
-        do{
-            printf("Ingresa el nombre del subcapitulo: ");
-            scanf(" %[^\n]",nuevaPregunta.subCapitulo.nombreSubCap);
-        } while (strlen(nuevaPregunta.subCapitulo.nombreSubCap)<0);
 
         do {
             printf("Ingresa la pregunta: ");
@@ -210,7 +232,6 @@ void ingresarPreguntas(){
 
         } while (nuevaPregunta.respuestaCorrecta<1||nuevaPregunta.respuestaCorrecta>4);
         guardarPreguntaEnArchivo(nuevaPregunta);
-        printf("GEI");
         printf("1:Ingresar Preguntas\n0:Salir\n");
         scanf(" %d",&opcion);
     }
@@ -221,13 +242,13 @@ void ingresarPreguntas(){
 
 }
 
-
+// Submenu modificar pregunta
 void menuModificarPregunta(){
     int opcion;
-    printf("Menu Modificar Preguntas\n");
+    printf("Menu Modificar Pregunta\n");
     printf("1-Modificar Pregunta.\n");
     printf("2-Eliminar Pregunta.\n");
-    printf("0-Salir del menu modificar preguntas.\n");
+    printf("0-Salir del menu modificar pregunta.\n");
     printf("Ingresa una opcion:");
     do {
         printf("Ingresa una opcion:");
@@ -239,7 +260,7 @@ void menuModificarPregunta(){
                 break;
 
             case 2:
-                //eliminarPregunta();
+                //subMenuEliminarPregunta();
                 break;
             case 0:
                 printf("Fin seccion modificar preguntas.\n");
@@ -249,7 +270,7 @@ void menuModificarPregunta(){
     } while (opcion<0 || opcion>2);
 }
 
-
+// Funcion para modificar una pregunta
 void modificarPregunta(){
     Pregunta preguntaModificada;
     int id;
@@ -276,7 +297,6 @@ void modificarPregunta(){
         scanf(" %d",&preguntaModificada.subCapitulo.id);
     }while(preguntaModificada.subCapitulo.id<0);
 
-    preguntaModificada.subCapitulo.idCapitulo=preguntaModificada.capitulo.id;
     // Ingreso el nombre del subcapitulo
     do {
         printf("Ingresa el nombre de subcapitulo %d capitulo %s y numero %d",preguntaModificada.subCapitulo.id,
@@ -351,7 +371,7 @@ Pregunta ObtenerPreguntaPorId(int *idPregunta){
 
 
 
-
+// Funcion para mostrar una pregunta por id
 void mostrarPregunta(int *idPregunta){
     printf("Mostrando pregunta %d\n",*idPregunta);
     Pregunta pregunta;
@@ -365,4 +385,72 @@ void mostrarPregunta(int *idPregunta){
         printf("Respuesta Correcta: %d\n",pregunta.respuestaCorrecta);
     }
     printf("Pregunta inexistente.\n");
+}
+
+void subMenuMostrarPreguntas(){
+    int opcion,idCapitulo,idSubCapitulo;
+    char nombreCapitulo[50],nombreSubCapitulo[50];
+    printf("Menu Mostrar Preguntas\n");
+    printf("1-Mostrar Preguntas por Capitulo y SubCapitulo.\n");
+    printf("0-Salir del menu mostrar preguntas.\n");
+    printf("Ingresa una opcion:");
+    do {
+        printf("Ingresa una opcion:");
+        scanf(" %d",&opcion);
+        switch (opcion)
+        {
+            case 1:
+                do {
+                    printf("Ingresa el id del capitulo:");
+                    scanf(" %d",&idCapitulo);
+                } while (idCapitulo<0);
+                do {
+                    printf("Ingresa el nombre del capitulo:");
+                    scanf(" %[^\n]",nombreCapitulo);
+                } while (strlen(nombreCapitulo)<0);
+                do {
+                    printf("Ingresa el id del subcapitulo:");
+                    scanf(" %d",&idSubCapitulo);
+                } while (idSubCapitulo<0);
+                do {
+                    printf("Ingresa el nombre del subcapitulo:");
+                    scanf(" %[^\n]",nombreSubCapitulo);
+                } while (strlen(nombreSubCapitulo)<0);
+                mostrarPreguntas(idCapitulo,idSubCapitulo,nombreCapitulo,nombreSubCapitulo);
+                break;
+            case 0:
+                printf("Fin seccion mostrar preguntas.\n");
+                break;
+        }
+
+    } while (opcion<0 || opcion>1);
+
+}
+
+
+
+
+
+
+// Funcion para mostrar  las preguntas por capitulo y subcapitulo
+void mostrarPreguntas(int idCapitulo,int idSubCapitulo,char nombreCapitulo[50],char nombreSubCapitulo[50]){
+    Pregunta preguntas[MAX_PREGUNTAS];
+    leerPreguntasEnArchivo(preguntas);
+    if(verSiExistePregunta(idCapitulo)==1){
+        for (int i=0;i<MAX_PREGUNTAS;i++){
+            if (preguntas[i].capitulo.id==idCapitulo && preguntas[i].subCapitulo.id==idSubCapitulo){
+                printf("Pregunta %d\n",i+1);
+                printf("Capitulo %s\n",nombreCapitulo);
+                printf("SubCapitulo %s\n",nombreSubCapitulo);
+                printf("Pregunta: %s\n",preguntas[i].pregunta);
+                printf("Opcion 1: %s\n",preguntas[i].opcion1);
+                printf("Opcion 2: %s\n",preguntas[i].opcion2);
+                printf("Opcion 3: %s\n",preguntas[i].opcion3);
+                printf("Opcion 4: %s\n",preguntas[i].opcion4);
+                printf("Respuesta Correcta: %d\n",preguntas[i].respuestaCorrecta);
+            }
+        }
+
+    }
+    printf("No hay preguntas para mostrar.\n");
 }
