@@ -55,7 +55,7 @@ void guardarPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
     printf("Pregunta agregada con exito.");
 }
 
-// funcion para obtener las preguntas
+// funcion para obtener las preguntas a memoria
 void leerPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
    FILE *archivo;
     archivo=fopen(ARCHIVO_PREGUNTAS,"r");
@@ -133,6 +133,7 @@ void guardarPreguntaModificada(Pregunta preguntaModificada){
     printf("Pregunta modificada con exito!!");
 }
 
+// Funcion para eliminar una pregunta
 void eliminarPregunta(Pregunta preguntaABorrar){
     Pregunta preguntas[MAX_PREGUNTAS];
     Pregunta preguntasNuevas[MAX_PREGUNTAS];
@@ -151,7 +152,7 @@ void eliminarPregunta(Pregunta preguntaABorrar){
 
 }
 
-
+// Funcion para buscar un capitulo por id
 Capitulo buscarCapituloPorId(int idCapitulo){
     Pregunta preguntas[MAX_PREGUNTAS];
     Capitulo capitulo;
@@ -178,4 +179,19 @@ SubCapitulo buscarSubCapituloPorId(int idCapitulo,int idSubCapitulo){
         }
     }
     return subCapitulo;
+}
+
+void obtenerTodasLasPreguntas(Pregunta preguntas[MAX_PREGUNTAS]){
+    leerPreguntasEnArchivo(preguntas);
+}
+
+void obtenerPreguntaPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS],int idCapitulo){
+    Pregunta preguntas[MAX_PREGUNTAS];
+    Pregunta preguntasC[MAX_PREGUNTAS];
+    leerPreguntasEnArchivo(preguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].capitulo.id==idCapitulo){
+            preguntasC[i]=preguntas[i];
+        }
+    }
 }

@@ -1,7 +1,6 @@
 #ifndef TPFINALC_FUNCTIONS_H
 #define TPFINALC_FUNCTIONS_H
 
-#define MAX_LONG_PREGUNTA 100
 #define C 1000
 extern const int MAX_PREGUNTAS;
 
@@ -35,7 +34,7 @@ typedef struct{
     int nExamen;
     int fecha;
     int cantidadPreguntas;
-    Pregunta preguntas[C];
+    int idPreguntas[C];
 }Examen;
 
 typedef struct{
@@ -44,7 +43,7 @@ typedef struct{
     Examen examenes;
 }Correccion;
 
-//Functions of questions handling
+//Functions relacionas a preguntas
 void menuPreguntas();
 void menuExamenes();
 void menuCorreciones();
@@ -52,9 +51,15 @@ void menuModificarPregunta();
 Pregunta ObtenerPreguntaPorId(int *idPregunta);
 void ingresarPreguntas();
 void subMenuMostrarPreguntas();
-void mostrarPreguntas(int idCapitulo,int idSubCapitulo,char nombreCapitulo[50],char nombreSubCapitulo[50]);
+void mostrarPreguntas();
 void menuModificarPregunta();
+void subMenuEliminarPregunta();
 void mostrarPregunta(int *idPregunta);
+void mostrarPreguntasPorCapitulo();
 void modificarPregunta();
 int menu();
+
+// Funciones relacionadas a examenes
+
+// Funciones relacionadas a correcciones
 #endif //TPFINALC_FUNCTIONS_H
