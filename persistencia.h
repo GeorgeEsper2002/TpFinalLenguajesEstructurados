@@ -8,22 +8,16 @@
 
 void guardarPreguntaEnArchivo(Pregunta nuevaPregunta);
 void guardarPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]);
-void leerPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]);
+void leerPreguntasDesdeArchivo(Pregunta preguntas[MAX_PREGUNTAS]);
 void guardarPreguntaModificada(Pregunta preguntaModificada);
 void eliminarPregunta(Pregunta preguntaABorrar);
-void obtenerPreguntaPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS],int idCapitulo);
+void obtenerPreguntasPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS], int idCapitulo);
 void obtenerTodasLasPreguntas(Pregunta preguntas[MAX_PREGUNTAS]);
 int verSiExistePregunta(int idPregunta);
 int verSiExisteCapitulo(int idCapitulo);
 int verSiExisteSubCapitulo(int idCapitulo,int idSubCapitulo);
 Capitulo buscarCapituloPorId(int idCapitulo);
 SubCapitulo buscarSubCapituloPorId(int idCapitulo,int idSubCapitulo);
-
-
-
-
-
-
-
+void obtenerTodosLosCapitulos(Capitulo capitulos[MAX_PREGUNTAS]);
 
 #endif //TPFINALC_PERSISTENCIA_H

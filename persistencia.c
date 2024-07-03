@@ -56,7 +56,7 @@ void guardarPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
 }
 
 // funcion para obtener las preguntas a memoria
-void leerPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
+void leerPreguntasDesdeArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
    FILE *archivo;
     archivo=fopen(ARCHIVO_PREGUNTAS,"r");
     if (archivo==NULL){
@@ -80,13 +80,16 @@ void leerPreguntasEnArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
                &preguntas[i].respuestaCorrecta);
         i++;
     }
-
+    for (int j = i;j<MAX_PREGUNTAS;++j)
+    {
+        preguntas[j].id=-1;
+    }
 }
 
 // Funcion para ver si existe una pregunta retorna 0 si no hay pregunta y 1 si hay pregunta existente.
 int verSiExistePregunta(int idPregunta){
     Pregunta preguntas[MAX_PREGUNTAS];
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].id == idPregunta){
             return 1;
@@ -98,7 +101,7 @@ int verSiExistePregunta(int idPregunta){
 // Funcion  para ver si existe un capitulo, retorna 0 si no hay capitulo y 1 si hay capitulo existente.
 int verSiExisteCapitulo(int idCapitulo){
      Pregunta preguntas[MAX_PREGUNTAS];
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
          if (preguntas[i].capitulo.id==idCapitulo) {
              return 1;
@@ -110,7 +113,7 @@ int verSiExisteCapitulo(int idCapitulo){
 // Funcion  para ver si existe un subcapitulo retorna 0 si no hay subcapitulo y 1 si hay subcapitulo existente.
 int verSiExisteSubCapitulo(int idCapitulo,int idSubCapitulo){
     Pregunta preguntas[MAX_PREGUNTAS];
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].subCapitulo.id==idSubCapitulo && preguntas[i].capitulo.id==idCapitulo) {
             return 1;
@@ -122,7 +125,7 @@ int verSiExisteSubCapitulo(int idCapitulo,int idSubCapitulo){
 // Funcion para guardar una pregunta modificada
 void guardarPreguntaModificada(Pregunta preguntaModificada){
     Pregunta preguntas[MAX_PREGUNTAS];
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].id==preguntaModificada.id){
             preguntas[i]=preguntaModificada;
@@ -137,7 +140,7 @@ void guardarPreguntaModificada(Pregunta preguntaModificada){
 void eliminarPregunta(Pregunta preguntaABorrar){
     Pregunta preguntas[MAX_PREGUNTAS];
     Pregunta preguntasNuevas[MAX_PREGUNTAS];
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     printf("La pregunta a borrar es:\n");
     mostrarPregunta(&preguntaABorrar.id);
     int j=0;
@@ -156,7 +159,7 @@ void eliminarPregunta(Pregunta preguntaABorrar){
 Capitulo buscarCapituloPorId(int idCapitulo){
     Pregunta preguntas[MAX_PREGUNTAS];
     Capitulo capitulo;
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].capitulo.id==idCapitulo){
             capitulo.id=preguntas[i].capitulo.id;
@@ -170,7 +173,7 @@ Capitulo buscarCapituloPorId(int idCapitulo){
 SubCapitulo buscarSubCapituloPorId(int idCapitulo,int idSubCapitulo){
     Pregunta preguntas[MAX_PREGUNTAS];
     SubCapitulo subCapitulo;
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].subCapitulo.id==idSubCapitulo && preguntas[i].capitulo.id==idCapitulo){
             subCapitulo.id=preguntas[i].subCapitulo.id;
@@ -182,16 +185,37 @@ SubCapitulo buscarSubCapituloPorId(int idCapitulo,int idSubCapitulo){
 }
 
 void obtenerTodasLasPreguntas(Pregunta preguntas[MAX_PREGUNTAS]){
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
 }
 
-void obtenerPreguntaPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS],int idCapitulo){
+void obtenerPreguntasPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS], int idCapitulo){
+    for (int i = 0; i < MAX_PREGUNTAS; ++i){
+        preguntasCapitulo[i].id=-1;
+    }
     Pregunta preguntas[MAX_PREGUNTAS];
-    Pregunta preguntasC[MAX_PREGUNTAS];
-    leerPreguntasEnArchivo(preguntas);
+    leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
-        if (preguntas[i].capitulo.id==idCapitulo){
-            preguntasC[i]=preguntas[i];
+        if(preguntas[i].id==-1){
+            break;
         }
+        if (preguntas[i].capitulo.id==idCapitulo){
+            preguntasCapitulo[i]=preguntas[i];
+        }
+    }
+
+}
+
+void obtenerTodosLosCapitulos(Capitulo capitulos[MAX_PREGUNTAS]){
+    for (int i = 0; i < MAX_PREGUNTAS; ++i) {
+        capitulos[i].id=-1;
+    }
+    Pregunta preguntas[MAX_PREGUNTAS];
+    leerPreguntasDesdeArchivo(preguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].id==-1){
+            break;
+        }
+        capitulos[i].id=preguntas[i].capitulo.id;
+        strcpy(capitulos[i].nombreCap,preguntas[i].capitulo.nombreCap);
     }
 }
