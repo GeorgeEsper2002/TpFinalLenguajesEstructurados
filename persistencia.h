@@ -19,5 +19,9 @@ int verSiExisteSubCapitulo(int idCapitulo,int idSubCapitulo);
 Capitulo buscarCapituloPorId(int idCapitulo);
 SubCapitulo buscarSubCapituloPorId(int idCapitulo,int idSubCapitulo);
 void obtenerTodosLosCapitulos(Capitulo capitulos[MAX_PREGUNTAS]);
-
+int contarPreguntasDisponibles();
+void mostrarSubCapitulosPorCapitulo(int idCapitulo,SubCapitulo subCapitulos[MAX_PREGUNTAS]);
+void mostrarCapitulos(Capitulo capitulos[MAX_PREGUNTAS]);
+void obtenerPreguntasPorSubCapitulo(int idCapitulo, int idSubCapitulo,Pregunta preguntas[MAX_PREGUNTAS]);
+void guardarExamenEnArchivo(Examen nuevoExamen);
 #endif //TPFINALC_PERSISTENCIA_H
