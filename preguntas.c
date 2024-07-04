@@ -8,7 +8,7 @@
  * y de ahi mirar las preguntas almacenadas.
  */
 void menuPreguntas(){
-    int opcion=1;
+    int opcion;
     printf("Menu administracion de preguntas\n");
     printf("1-Agregar nuevas preguntas.\n");
     printf("2-Modificar preguntas existentes.\n");
@@ -486,28 +486,27 @@ void subMenuEliminarPregunta(){
 }
 
 
-void mostrarPreguntasPorCapitulo(){
+
+
+// Funcion para mostrar preguntas por capitulo y subcapitulo
+
+void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo){
     Pregunta preguntas[MAX_PREGUNTAS];
-    int idCapitulo;
-    do {
-        printf("Ingresa el numero de capitulo para mostrar sus preguntas:");
-        scanf(" %d",&idCapitulo);
-    } while (idCapitulo<0);
-    obtenerPreguntasPorCapitulo(preguntas, idCapitulo);
-    for (int i = 0; i < MAX_PREGUNTAS; ++i)
-    {
-        if (preguntas[i].id!=-1)
-        {
-            printf("Pregunta %d\n",preguntas[i].id);
-            printf("Capitulo %s\n",preguntas[i].capitulo.nombreCap);
-            printf("SubCapitulo %s\n",preguntas[i].subCapitulo.nombreSubCap);
-            printf("Pregunta: %s\n",preguntas[i].pregunta);
-            printf("Opcion 1: %s\n",preguntas[i].opcion1);
-            printf("Opcion 2: %s\n",preguntas[i].opcion2);
-            printf("Opcion 3: %s\n",preguntas[i].opcion3);
-            printf("Opcion 4: %s\n",preguntas[i].opcion4);
-            printf("Respuesta Correcta: %d\n",preguntas[i].respuestaCorrecta);
+    obtenerPreguntasPorSubCapitulo(idCapitulo,idSubCapitulo,preguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].id == -1){
+            break;
         }
+        printf("id:%d|Capitulo:%s|SubCapitulo %s|Pregunta: %s|Opcion 1: %s|Opcion 2: %s|Opcion 3: %s|Opcion 4: %s|Respuesta Correcta: %d",
+               preguntas[i].id,
+               preguntas[i].capitulo.nombreCap,
+               preguntas[i].subCapitulo.nombreSubCap,
+               preguntas[i].pregunta,
+               preguntas[i].opcion1,
+               preguntas[i].opcion2,
+               preguntas[i].opcion3,
+               preguntas[i].opcion4,
+               preguntas[i].respuestaCorrecta);
 
     }
 }

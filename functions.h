@@ -31,8 +31,8 @@ typedef struct{
 
 
 typedef struct{
-    int nExamen;
-    int fecha;
+    int idExamen;
+    char fecha[20];
     int cantidadPreguntas;
     int idPreguntas[C];
 }Examen;
@@ -43,7 +43,7 @@ typedef struct{
     Examen examenes;
 }Correccion;
 
-//Functions relacionas a preguntas
+//Funciones relacionas a preguntas
 void menuPreguntas();
 void menuExamenes();
 void menuCorreciones();
@@ -55,11 +55,12 @@ void mostrarPreguntas();
 void menuModificarPregunta();
 void subMenuEliminarPregunta();
 void mostrarPregunta(int *idPregunta);
-void mostrarPreguntasPorCapitulo();
+void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo);
 void modificarPregunta();
 int menu();
 
 // Funciones relacionadas a examenes
+void generarExamenes();
 
 // Funciones relacionadas a correcciones
 #endif //TPFINALC_FUNCTIONS_H

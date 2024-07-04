@@ -205,8 +205,10 @@ void obtenerPreguntasPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS], int 
 
 }
 
+
+// Funcion para obtener todos los capitulos
 void obtenerTodosLosCapitulos(Capitulo capitulos[MAX_PREGUNTAS]){
-    for (int i = 0; i < MAX_PREGUNTAS; ++i) {
+    for (int i = 0; i < MAX_PREGUNTAS; ++i){
         capitulos[i].id=-1;
     }
     Pregunta preguntas[MAX_PREGUNTAS];
@@ -218,4 +220,73 @@ void obtenerTodosLosCapitulos(Capitulo capitulos[MAX_PREGUNTAS]){
         capitulos[i].id=preguntas[i].capitulo.id;
         strcpy(capitulos[i].nombreCap,preguntas[i].capitulo.nombreCap);
     }
+}
+
+// Funcion para contar preguntas disponibles
+int contarPreguntasDisponibles(){
+    Pregunta preguntas[MAX_PREGUNTAS];
+    leerPreguntasDesdeArchivo(preguntas);
+    int contador=0;
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].id==-1){
+            break;
+        }
+        contador++;
+    }
+    return contador;
+}
+
+
+// Funcion para mostrar subcapitulos por capitulo
+void mostrarSubCapitulosPorCapitulo(int idCapitulo,SubCapitulo subCapitulos[MAX_PREGUNTAS]){
+    Pregunta preguntas[MAX_PREGUNTAS];
+    leerPreguntasDesdeArchivo(preguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].capitulo.id==idCapitulo){
+            printf(" %d-%s\n",subCapitulos->id,preguntas[i].subCapitulo.nombreSubCap);
+        }
+    }
+}
+
+// Funcion para mostrar los capitulos disponibles.
+void mostrarCapitulos(Capitulo capitulos[MAX_PREGUNTAS]){
+    obtenerTodosLosCapitulos(capitulos);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (capitulos[i].id==-1){
+            break;
+        }
+        printf(" %d-%s\n",capitulos[i].id,capitulos[i].nombreCap);
+    }
+}
+
+// Funcion para mostrar preguntas por subcapitulo NO IMPLEMENTADO
+/*
+void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo){
+    Pregunta preguntas[MAX_PREGUNTAS];
+    Capitulo capitulos[MAX_PREGUNTAS];
+    obtenerTodosLosCapitulos(capitulos);
+    leerPreguntasDesdeArchivo(preguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].capitulo.id==idCapitulo && preguntas[i].subCapitulo.id==idSubCapitulo){
+            mostrarPregunta(&preguntas[i].id);
+        }
+    }
+}
+ */
+
+void guardarExamenEnArchivo(Examen nuevoExamen){
+    FILE *archivo;
+    archivo=fopen("examenes.txt","a");
+    if (archivo==NULL){
+        printf("Error al abrir el archivo.");
+        return;
+    }
+
+    fprintf(archivo, "%d;%s;%d;",nuevoExamen.idExamen,nuevoExamen.fecha,nuevoExamen.cantidadPreguntas);
+    for (int i=0;i<nuevoExamen.cantidadPreguntas;i++){
+        fprintf(archivo, "%d;",nuevoExamen.idPreguntas[i]);
+    }
+    fprintf(archivo, "\n");
+    fclose(archivo);
+    printf("Examen agregado con exito.");
 }
