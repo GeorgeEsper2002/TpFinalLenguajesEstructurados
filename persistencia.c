@@ -86,10 +86,19 @@ void leerPreguntasDesdeArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
     }
 }
 
-// Funcion para ver si existe una pregunta retorna 0 si no hay pregunta y 1 si hay pregunta existente.
 int verSiExistePregunta(int idPregunta){
     Pregunta preguntas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (preguntas[i].id==idPregunta){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// Funcion para ver si existe una pregunta retorna 0 si no hay pregunta y 1 si hay pregunta existente.
+int verSiExistePreguntaEnArreglo(int idPregunta, Pregunta preguntas[MAX_PREGUNTAS]){
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].id == idPregunta){
             return 1;
@@ -208,27 +217,29 @@ void obtenerPreguntasPorCapitulo(Pregunta preguntasCapitulo[MAX_PREGUNTAS], int 
 
 // Funcion para obtener todos los capitulos
 void obtenerTodosLosCapitulos(Capitulo capitulos[MAX_PREGUNTAS]){
+    int indice=0;
     for (int i = 0; i < MAX_PREGUNTAS; ++i){
         capitulos[i].id=-1;
     }
     Pregunta preguntas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
+        indice=preguntas[i].capitulo.id;
         if (preguntas[i].id==-1){
             break;
         }
-        capitulos[i].id=preguntas[i].capitulo.id;
-        strcpy(capitulos[i].nombreCap,preguntas[i].capitulo.nombreCap);
+        capitulos[indice].id=preguntas[i].capitulo.id;
+        strcpy(capitulos[indice].nombreCap,preguntas[i].capitulo.nombreCap);
     }
 }
 
 // Funcion para contar preguntas disponibles
-int contarPreguntasDisponibles(){
+int contarPreguntasDisponiblesPorSubcapitulo(int idCapitulo,int idSubCapitulo){
     Pregunta preguntas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
     int contador=0;
     for (int i=0;i<MAX_PREGUNTAS;i++){
-        if (preguntas[i].id==-1){
+        if (preguntas[i].id==-1 && preguntas[i].capitulo.id==idCapitulo && preguntas[i].subCapitulo.id==idSubCapitulo){
             break;
         }
         contador++;
@@ -239,11 +250,18 @@ int contarPreguntasDisponibles(){
 
 // Funcion para mostrar subcapitulos por capitulo
 void mostrarSubCapitulosPorCapitulo(int idCapitulo,SubCapitulo subCapitulos[MAX_PREGUNTAS]){
+    int indice=0;
+    for (int i = 0; i < MAX_PREGUNTAS; ++i){
+        subCapitulos[i].id=-1;
+    }
     Pregunta preguntas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
-        if (preguntas[i].capitulo.id==idCapitulo){
-            printf(" %d-%s\n",subCapitulos->id,preguntas[i].subCapitulo.nombreSubCap);
+        indice=preguntas[i].subCapitulo.id;
+        if (preguntas[i].capitulo.id==idCapitulo && subCapitulos[indice].id==-1){
+            subCapitulos[indice].id=preguntas[i].subCapitulo.id;
+            strcpy(subCapitulos[indice].nombreSubCap,preguntas[i].subCapitulo.nombreSubCap);
+            printf("%d-%s\n",subCapitulos[indice].id,subCapitulos[indice].nombreSubCap);
         }
     }
 }
@@ -252,10 +270,10 @@ void mostrarSubCapitulosPorCapitulo(int idCapitulo,SubCapitulo subCapitulos[MAX_
 void mostrarCapitulos(Capitulo capitulos[MAX_PREGUNTAS]){
     obtenerTodosLosCapitulos(capitulos);
     for (int i=0;i<MAX_PREGUNTAS;i++){
-        if (capitulos[i].id==-1){
-            break;
+        if (capitulos[i].id!=-1){
+            printf("%d-%s\n",capitulos[i].id,capitulos[i].nombreCap);
         }
-        printf(" %d-%s\n",capitulos[i].id,capitulos[i].nombreCap);
+
     }
 }
 
@@ -274,6 +292,27 @@ void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo){
 }
  */
 
+
+// Funcion para ver si existe un examen NO IMPLEMENTADO
+int verSiExisteExamen(int idExamen){
+    FILE *archivo;
+    archivo=fopen("examenes.txt","r");
+    if (archivo==NULL){
+        printf("Error al abrir el archivo.");
+        return 0;
+    }
+    int idExamenArchivo;
+    while (!feof(archivo)){
+        fscanf(archivo, "%d;%*s;%*d;", &idExamenArchivo);
+        if (idExamenArchivo==idExamen){
+            return 1;
+        }
+    }
+    fclose(archivo);
+    return 0;
+}
+
+// Funcion para guardar un examen en el archivo de examenes
 void guardarExamenEnArchivo(Examen nuevoExamen){
     FILE *archivo;
     archivo=fopen("examenes.txt","a");
@@ -289,4 +328,60 @@ void guardarExamenEnArchivo(Examen nuevoExamen){
     fprintf(archivo, "\n");
     fclose(archivo);
     printf("Examen agregado con exito.");
+}
+
+
+// Funcion que me obtiene las preguntas disponibles por capitulo y subcapitulo
+void preguntasDisponibles(Pregunta preguntas[MAX_PREGUNTAS], int idCapitulo, int idSubCapitulo){
+    for (int i = 0; i < MAX_PREGUNTAS; ++i) {
+        preguntas[i].id=-1;
+    }
+    int contador=0;
+    Pregunta todasLasPreguntas[MAX_PREGUNTAS];
+    leerPreguntasDesdeArchivo(todasLasPreguntas);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (todasLasPreguntas[i].capitulo.id==idCapitulo && todasLasPreguntas[i].subCapitulo.id==idSubCapitulo){
+            preguntas[contador]=todasLasPreguntas[i];
+            contador++;
+        }
+    }
+}
+
+
+void obtenerTodosLosExamenes(Examen examenes[MAX_PREGUNTAS]){
+    FILE *archivo;
+    archivo=fopen("examenes.txt","r");
+    if (archivo==NULL){
+        printf("Error al abrir el archivo.");
+        return;
+    }
+    int idExamen;
+    char fecha[20];
+    int cantidadPreguntas;
+    int idPreguntas[MAX_PREGUNTAS];
+    int i=0;
+    while (!feof(archivo)){
+        fscanf(archivo, "%d;%s;%d;", &idExamen,fecha,&cantidadPreguntas);
+        examenes[i].idExamen=idExamen;
+        strcpy(examenes[i].fecha,fecha);
+        examenes[i].cantidadPreguntas=cantidadPreguntas;
+        for (int j=0;j<cantidadPreguntas;j++){
+            fscanf(archivo, "%d;", &examenes[i].idPreguntas[j]);
+        }
+        i++;
+    }
+    fclose(archivo);
+}
+
+Examen getExamenById(int idExamen){
+    Examen examenes[MAX_PREGUNTAS];
+    obtenerTodosLosExamenes(examenes);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (examenes[i].idExamen==idExamen){
+            return examenes[i];
+        }
+    }
+    Examen examenVacio;
+    examenVacio.idExamen=-1;
+    return examenVacio;
 }
