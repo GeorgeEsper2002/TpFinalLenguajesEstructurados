@@ -14,7 +14,6 @@
 // Declaraciones de constantes
 const int MAX_PREGUNTAS=500;
 // Declaraciones de estructuras
-
 /*struct examen{ //
     int idExamen;
     int fecha;

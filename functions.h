@@ -1,7 +1,7 @@
 #ifndef TPFINALC_FUNCTIONS_H
 #define TPFINALC_FUNCTIONS_H
 
-#define C 1000
+#define C 100
 extern const int MAX_PREGUNTAS;
 
 typedef struct{
@@ -55,7 +55,7 @@ void mostrarPreguntas();
 void menuModificarPregunta();
 void subMenuEliminarPregunta();
 void mostrarPregunta(int *idPregunta);
-void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo);
+void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo,Pregunta preguntas[MAX_PREGUNTAS]);
 void modificarPregunta();
 int menu();
 
