@@ -10,7 +10,7 @@ int menu()
     printf("2-Administracion de Examenes.\n");
     printf("3-Administracion de Correcciones.\n");
     printf("0-FIN PROGRAMA\n");
-    do {
+    do{
         printf("Ingresa una opcion:");
         scanf(" %d",&opcion);
         if(opcion<0 || opcion>3){

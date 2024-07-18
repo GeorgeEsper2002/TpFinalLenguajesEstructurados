@@ -12,4 +12,6 @@ add_executable(tpFinalC main.c
         functions.h
         menu.c
         persistencia.h
+        util.h
+        util.c
 )

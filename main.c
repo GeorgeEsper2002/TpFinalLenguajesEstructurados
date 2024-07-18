@@ -16,13 +16,13 @@ const int MAX_PREGUNTAS=500;
 // Declaraciones de estructuras
 
 /*struct examen{ //
-    int nExamen;
+    int idExamen;
     int fecha;
     int cantidadPreguntas;
     Pregunta preguntas[MAX_PREGUNTAS];
 };
 struct correccion{
-    int nExamen;
+    int idExamen;
     int puntaje;
     struct examen examenes[MAX_PREGUNTAS];
 };
