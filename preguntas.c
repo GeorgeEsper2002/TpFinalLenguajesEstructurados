@@ -138,12 +138,12 @@ void ingresarPreguntas(){
         do {
             printf("Ingresa el id de la pregunta: ");
             scanf(" %d",&nuevaPregunta.id);
-            banderaPregunta=verSiExistePregunta(nuevaPregunta.id);
+            banderaPregunta= verSiExistePregunta(nuevaPregunta.id);
             while(banderaPregunta==1){
                 printf("El id de la pregunta ya existe\n");
                 printf("Ingresa el id de la pregunta: ");
                 scanf(" %d",&nuevaPregunta.id);
-                banderaPregunta=verSiExistePregunta(nuevaPregunta.id);
+                banderaPregunta= verSiExistePregunta(nuevaPregunta.id);
             }
         } while (nuevaPregunta.id<0);
 
@@ -271,12 +271,12 @@ void modificarPregunta(){
     do {
         printf("Ingresa el id de la pregunta: ");
         scanf(" %d",&preguntaAModificar.id);
-        banderaPregunta=verSiExistePregunta(preguntaAModificar.id);
+        banderaPregunta= verSiExistePregunta(preguntaAModificar.id);
         while(banderaPregunta==1){
             printf("El id de la pregunta ya existe\n");
             printf("Ingresa el id de la pregunta: ");
             scanf(" %d",&preguntaAModificar.id);
-            banderaPregunta=verSiExistePregunta(preguntaAModificar.id);
+            banderaPregunta= verSiExistePregunta(preguntaAModificar.id);
         }
     } while (preguntaAModificar.id<0);
 
@@ -414,7 +414,7 @@ void subMenuMostrarPreguntas(){
         switch (opcion)
         {
             case 1:
-                mostrarPreguntasPorCapitulo();
+                //mostrarPreguntasPorCapitulo();
                 break;
             case 2:
                 mostrarPreguntas();
@@ -475,7 +475,7 @@ void subMenuEliminarPregunta(){
                         pregunta.id=id;
                         eliminarPregunta(pregunta);
                     }
-                } while (verSiExistePregunta(id)==0);
+                } while (verSiExistePregunta(id) == 0);
                     break;
             case 0:
                 printf("Fin seccion eliminar preguntas.\n");
@@ -490,9 +490,8 @@ void subMenuEliminarPregunta(){
 
 // Funcion para mostrar preguntas por capitulo y subcapitulo
 
-void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo){
-    Pregunta preguntas[MAX_PREGUNTAS];
-    obtenerPreguntasPorSubCapitulo(idCapitulo,idSubCapitulo,preguntas);
+void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo, Pregunta preguntas[MAX_PREGUNTAS]){
+    //obtenerPreguntasPorSubCapitulo(idCapitulo,idSubCapitulo,preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].id == -1){
             break;
