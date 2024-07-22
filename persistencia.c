@@ -2,6 +2,7 @@
 #include <string.h>
 #include "functions.h"
 #include "persistencia.h"
+#include <stdlib.h>
 #define ARCHIVO_PREGUNTAS "preguntas.txt"
 
 void guardarPreguntaEnArchivo(Pregunta nuevaPregunta){
@@ -86,7 +87,7 @@ void leerPreguntasDesdeArchivo(Pregunta preguntas[MAX_PREGUNTAS]){
     }
 }
 
-int verSiExistePregunta(int idPregunta){
+int  verSiExistePregunta(int idPregunta){
     Pregunta preguntas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
@@ -151,7 +152,7 @@ void eliminarPregunta(Pregunta preguntaABorrar){
     Pregunta preguntasNuevas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
     printf("La pregunta a borrar es:\n");
-    mostrarPregunta(&preguntaABorrar.id);
+    mostrarPregunta(preguntaABorrar.id);
     int j=0;
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].id!=preguntaABorrar.id){
@@ -348,6 +349,17 @@ void preguntasDisponibles(Pregunta preguntas[MAX_PREGUNTAS], int idCapitulo, int
 }
 
 
+
+int hayPreguntasDisponibles(Pregunta pregunta[MAX_PREGUNTAS],int idCapitulo,int idSubCapitulo){
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (pregunta[i].capitulo.id==idCapitulo && pregunta[i].subCapitulo.id==idSubCapitulo && pregunta[i].id!=-1){
+            return 1;
+        }
+    }
+    return 0;
+
+}
+
 void obtenerTodosLosExamenes(Examen examenes[MAX_PREGUNTAS]){
     FILE *archivo;
     archivo=fopen("examenes.txt","r");
@@ -355,21 +367,23 @@ void obtenerTodosLosExamenes(Examen examenes[MAX_PREGUNTAS]){
         printf("Error al abrir el archivo.");
         return;
     }
-    int idExamen;
-    char fecha[20];
-    int cantidadPreguntas;
-    int idPreguntas[MAX_PREGUNTAS];
+
     int i=0;
-    while (!feof(archivo)){
-        fscanf(archivo, "%d;%s;%d;", &idExamen,fecha,&cantidadPreguntas);
-        examenes[i].idExamen=idExamen;
-        strcpy(examenes[i].fecha,fecha);
-        examenes[i].cantidadPreguntas=cantidadPreguntas;
-        for (int j=0;j<cantidadPreguntas;j++){
-            fscanf(archivo, "%d;", &examenes[i].idPreguntas[j]);
-        }
-        i++;
+    char line[512];
+    while (fgets(line, sizeof(line), archivo)) {
+       char *token = strtok(line, ";");
+       examenes[i].idExamen=atoi(token);
+       token = strtok(NULL, ";");
+       strcpy(examenes[i].fecha,token);
+       token = strtok(NULL, ";");
+       examenes[i].cantidadPreguntas=atoi(token);
+       for (int j=0;j<examenes[i].cantidadPreguntas;j++){
+           token = strtok(NULL, ";");
+           examenes[i].idPreguntas[j]=atoi(token);
+       }
+       i++;
     }
+
     fclose(archivo);
 }
 
@@ -384,4 +398,84 @@ Examen getExamenById(int idExamen){
     Examen examenVacio;
     examenVacio.idExamen=-1;
     return examenVacio;
+}
+
+void guardarCorreccionEnArchivo(Correccion nuevaCorreccion){
+    FILE *archivo;
+    archivo=fopen("correcciones.txt","a");
+    if (archivo==NULL){
+        printf("Error al abrir el archivo.");
+        return;
+    }
+
+    fprintf(archivo, "%d;%s;%f;",nuevaCorreccion.nExamen,nuevaCorreccion.nombreAlumno,nuevaCorreccion.puntaje);
+    for (int i=0;i<nuevaCorreccion.cantidadPreguntas;i++){
+        fprintf(archivo, "%d;",nuevaCorreccion.respuestas[i]);
+    }
+    fprintf(archivo, "\n");
+    fclose(archivo);
+    printf("Correccion agregada con exito.");
+}
+
+
+
+// Funcion para obtener las correcciones desde el archivo a memoria
+void obtenerCorrecciones(Correccion correcciones[MAX_PREGUNTAS]){
+
+    for (int i = 0; i < MAX_PREGUNTAS; ++i){
+        correcciones[i].nExamen=-1;
+    }
+
+    FILE *archivo;
+    archivo=fopen("correcciones.txt","r");
+    if (archivo==NULL){
+        printf("Error al abrir el archivo.");
+        return;
+    }
+    int i=0;
+    char line[512];
+    while (fgets(line, sizeof(line), archivo)) {
+        char *token = strtok(line, ";");
+        correcciones[i].nExamen=atoi(token);
+        token = strtok(NULL, ";");
+        strcpy(correcciones[i].nombreAlumno,token);
+        token = strtok(NULL, ";");
+        correcciones[i].puntaje=atof(token);
+        token = strtok(NULL, ";");
+        correcciones[i].cantidadPreguntas=atoi(token);
+        for (int j = 0; j <correcciones[i].cantidadPreguntas ; ++j) {
+            token = strtok(NULL, ";");
+            correcciones[i].respuestas[j]=atoi(token);
+        }
+        i++;
+    }
+
+    fclose(archivo);
+}
+
+
+int examenTieneCorreccion(int idExamen){
+   Correccion correcciones[MAX_PREGUNTAS];
+   obtenerCorrecciones(correcciones);
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+         if (correcciones[i].nExamen==idExamen){
+              return 1;
+         }
+    }
+   return 0;
+}
+
+void obtenerPreguntasPorSubCapitulo(int idCapitulo, int idSubCapitulo,Pregunta preguntas[MAX_PREGUNTAS]){
+    for (int i = 0; i < MAX_PREGUNTAS; ++i){
+        preguntas[i].id=-1;
+    }
+    Pregunta todasLasPreguntas[MAX_PREGUNTAS];
+    leerPreguntasDesdeArchivo(todasLasPreguntas);
+    int contador=0;
+    for (int i=0;i<MAX_PREGUNTAS;i++){
+        if (todasLasPreguntas[i].capitulo.id==idCapitulo && todasLasPreguntas[i].subCapitulo.id==idSubCapitulo){
+            preguntas[contador]=todasLasPreguntas[i];
+            contador++;
+        }
+    }
 }

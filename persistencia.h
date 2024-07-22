@@ -29,4 +29,8 @@ int verSiExisteExamen(int idExamen);
 void obtenerTodosLosExamenes(Examen examenes[MAX_PREGUNTAS]);
 Examen getExamenById(int idExamen);
 void preguntasDisponibles(Pregunta preguntas[MAX_PREGUNTAS], int idCapitulo, int idSubCapitulo);
+void guardarCorreccionEnArchivo(Correccion nuevaCorreccion);
+void obtenerCorrecciones(Correccion correcciones[MAX_PREGUNTAS]);
+int hayPreguntasDisponibles(Pregunta pregunta[MAX_PREGUNTAS],int idCapitulo,int idSubCapitulo);
+int examenTieneCorreccion(int idExamen);
 #endif //TPFINALC_PERSISTENCIA_H

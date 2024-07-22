@@ -3,10 +3,8 @@
 #include <stdio.h>
 #include "functions.h"
 #include "persistencia.h"
-/*
- * una opcion del menu que permita listar las preguntas ingresadas por capitulo y subcapitulo
- * y de ahi mirar las preguntas almacenadas.
- */
+
+// Funcion para mostrar el menu de preguntas
 void menuPreguntas(){
     int opcion;
     printf("Menu administracion de preguntas\n");
@@ -363,11 +361,11 @@ void modificarPregunta(){
 
 
 // Funcion que busca la pregunta por id para mostrarla
-Pregunta ObtenerPreguntaPorId(int *idPregunta){
+Pregunta ObtenerPreguntaPorId(int idPregunta){
     Pregunta preguntas[MAX_PREGUNTAS];
     leerPreguntasDesdeArchivo(preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
-        if (preguntas[i].id==*idPregunta){
+        if (preguntas[i].id==idPregunta){
             return preguntas[i];
         }
 
@@ -385,17 +383,20 @@ Pregunta ObtenerPreguntaPorId(int *idPregunta){
 
 
 // Funcion para mostrar una pregunta por id
-void mostrarPregunta(int *idPregunta){
-    printf("Mostrando pregunta %d\n",*idPregunta);
+void mostrarPregunta(int idPregunta){
+    printf("Mostrando pregunta %d\n",idPregunta);
     Pregunta pregunta;
     pregunta=ObtenerPreguntaPorId(idPregunta);
     if(pregunta.id!=-1){
-        printf("Pregunta: %s\n",pregunta.pregunta);
-        printf("Opcion 1: %s\n",pregunta.opcion1);
-        printf("Opcion 2: %s\n",pregunta.opcion2);
-        printf("Opcion 3: %s\n",pregunta.opcion3);
-        printf("Opcion 4: %s\n",pregunta.opcion4);
-        printf("Respuesta Correcta: %d\n",pregunta.respuestaCorrecta);
+        printf("ID:%d|Pregunta: %s|Opcion 1: %s|Opcion 2: %s|Opcion 3: %s|Opcion 4: %s|Respuesta Correcta: %d",
+               pregunta.id,
+               pregunta.pregunta,
+               pregunta.opcion1,
+               pregunta.opcion2,
+               pregunta.opcion3,
+               pregunta.opcion4,
+               pregunta.respuestaCorrecta
+        );
     }
     printf("Pregunta inexistente.\n");
 }
@@ -404,7 +405,7 @@ void mostrarPregunta(int *idPregunta){
 void subMenuMostrarPreguntas(){
     int opcion;
     printf("Menu Mostrar Preguntas\n");
-    printf("1-Mostrar Preguntas por Capitulo.\n");
+    printf("1-Mostrar Preguntas por Subcapitulo.\n");
     printf("2-Mostrar todas las preguntas almacenadas.\n");
     printf("0-Salir del menu mostrar preguntas.\n");
     printf("Ingresa una opcion:");
@@ -414,7 +415,7 @@ void subMenuMostrarPreguntas(){
         switch (opcion)
         {
             case 1:
-                //mostrarPreguntasPorCapitulo();
+                subMenuMostrarPreguntasSubcapitulo();
                 break;
             case 2:
                 mostrarPreguntas();
@@ -438,15 +439,15 @@ void mostrarPreguntas(){
         if (preguntas[i].id == -1){
             break;
         }
-        printf("Pregunta %d\n",i+1);
-        printf("Capitulo %s\n",preguntas[i].capitulo.nombreCap);
-        printf("SubCapitulo %s\n",preguntas[i].subCapitulo.nombreSubCap);
-        printf("Pregunta: %s\n",preguntas[i].pregunta);
-        printf("Opcion 1: %s\n",preguntas[i].opcion1);
-        printf("Opcion 2: %s\n",preguntas[i].opcion2);
-        printf("Opcion 3: %s\n",preguntas[i].opcion3);
-        printf("Opcion 4: %s\n",preguntas[i].opcion4);
-        printf("Respuesta Correcta: %d\n",preguntas[i].respuestaCorrecta);
+        printf("ID:%d|Pregunta: %s|Opcion 1: %s|Opcion 2: %s|Opcion 3: %s|Opcion 4: %s|Respuesta Correcta: %d",
+               preguntas[i].id,
+               preguntas[i].pregunta,
+               preguntas[i].opcion1,
+               preguntas[i].opcion2,
+               preguntas[i].opcion3,
+               preguntas[i].opcion4,
+               preguntas[i].respuestaCorrecta
+       );
     }
 
 }
@@ -491,7 +492,7 @@ void subMenuEliminarPregunta(){
 // Funcion para mostrar preguntas por capitulo y subcapitulo
 
 void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo, Pregunta preguntas[MAX_PREGUNTAS]){
-    //obtenerPreguntasPorSubCapitulo(idCapitulo,idSubCapitulo,preguntas);
+    obtenerPreguntasPorSubCapitulo(idCapitulo,idSubCapitulo,preguntas);
     for (int i=0;i<MAX_PREGUNTAS;i++){
         if (preguntas[i].id == -1){
             break;
@@ -508,4 +509,51 @@ void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo, Pregunta p
                preguntas[i].respuestaCorrecta);
 
     }
+}
+
+void subMenuMostrarPreguntasSubcapitulo(){
+    int opcion;
+    printf("Menu Mostrar Preguntas por Subcapitulo\n");
+    do {
+
+        printf("Menu Mostrar Preguntas por Subcapitulo\n");
+        printf("1-Mostrar Preguntas por capitulo y subcapitulo.\n");
+        printf("0-Salir del menu mostrar preguntas por subcapitulo.\n");
+        scanf(" %d",&opcion);
+        switch (opcion){
+            case 1:
+                mostrarPreguntasSubcapitulo();
+                break;
+            case 0:
+                printf("Fin seccion mostrar preguntas por subcapitulo.\n");
+                break;
+        }
+    }while(opcion>1 | opcion<0);
+
+}
+
+
+void mostrarPreguntasSubcapitulo(){
+    int idCapitulo,idSubCapitulo;
+    Pregunta preguntas[MAX_PREGUNTAS];
+    Capitulo capitulo[MAX_PREGUNTAS];
+    SubCapitulo subCapitulos[MAX_PREGUNTAS];
+
+    do {
+        mostrarCapitulos(capitulo);
+        printf("Ingresa el id del capitulo:");
+        scanf(" %d",&idCapitulo);
+        if(verSiExisteCapitulo(idCapitulo)==0) {
+            printf("El Capitulo no existe.\n");
+        }
+    }while(verSiExisteCapitulo(idCapitulo)==0 && idCapitulo<1);
+    do {
+        mostrarSubCapitulosPorCapitulo(idCapitulo,subCapitulos);
+        printf("Ingresa el id del subcapitulo:");
+        scanf(" %d",&idSubCapitulo);
+        if(verSiExisteSubCapitulo(idCapitulo,idSubCapitulo)==0){
+            printf("El SubCapitulo no existe.\n");
+        }
+    }while (verSiExisteSubCapitulo(idCapitulo,idSubCapitulo)==0 && idSubCapitulo<1);
+    mostrarPreguntasPorSubCapitulo(idCapitulo,idSubCapitulo,preguntas);
 }

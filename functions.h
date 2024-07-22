@@ -39,8 +39,11 @@ typedef struct{
 
 typedef struct{
     int nExamen;
-    int puntaje;
-    Examen examenes;
+    char nombreAlumno[50];
+    float puntaje;
+    int cantidadPreguntas;
+    Examen examen;
+    int respuestas[C];
 }Correccion;
 
 //Funciones relacionas a preguntas
@@ -48,14 +51,16 @@ void menuPreguntas();
 void menuExamenes();
 void menuCorreciones();
 void menuModificarPregunta();
-Pregunta ObtenerPreguntaPorId(int *idPregunta);
+Pregunta ObtenerPreguntaPorId(int idPregunta);
 void ingresarPreguntas();
 void subMenuMostrarPreguntas();
+void subMenuMostrarPreguntasSubcapitulo();
 void mostrarPreguntas();
 void menuModificarPregunta();
 void subMenuEliminarPregunta();
-void mostrarPregunta(int *idPregunta);
+void mostrarPregunta(int idPregunta);
 void mostrarPreguntasPorSubCapitulo(int idCapitulo,int idSubCapitulo,Pregunta preguntas[MAX_PREGUNTAS]);
+void mostrarPreguntasSubcapitulo();
 void modificarPregunta();
 int menu();
 

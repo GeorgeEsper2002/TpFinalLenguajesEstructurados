@@ -38,6 +38,9 @@ void menuExamenes(){
 
 
 
+// Poder agregar cualquier pregunta en examen y no solo las de un subcapitulo
+
+
 // Funcion para generar examenes
 /*
  * La funcion deberia generar exanemenes
@@ -46,14 +49,17 @@ void menuExamenes(){
  *
  */
 void generarExamenes(){
-    printf("Generar examenes\n");
+    printf("------Generar examenes------\n");
       int bandera,idPregunta,cantidadTotalPreguntas,idCapitulo,idSubCapitulo;
         Examen nuevoExamen;
         nuevoExamen.cantidadPreguntas=0;
         Pregunta preguntas[MAX_PREGUNTAS];
         Capitulo capitulos[MAX_PREGUNTAS];
         SubCapitulo subCapitulos[MAX_PREGUNTAS];
-        do {
+        for (int i=0;i<C;i++){
+            nuevoExamen.idPreguntas[i]=-1;
+        }
+        do{
             printf("Ingresa el numero de examen: ");
             scanf(" %d",&nuevoExamen.idExamen);
             if(verSiExisteExamen(nuevoExamen.idExamen)==1){
@@ -63,7 +69,7 @@ void generarExamenes(){
                     scanf(" %d",&nuevoExamen.idExamen);
                 }while(verSiExisteExamen(nuevoExamen.idExamen)==1);
             }
-        }while (nuevoExamen.idExamen < 0 && verSiExisteExamen(nuevoExamen.idExamen) != 1);
+        }while(nuevoExamen.idExamen < 0 && verSiExisteExamen(nuevoExamen.idExamen) != 1);
         do {
             printf("Ingresa fecha de examen en formato (dd/mm/aaaa): ");
             scanf(" %s",nuevoExamen.fecha);
@@ -75,44 +81,53 @@ void generarExamenes(){
             }
         } while (strlen(nuevoExamen.fecha)<1 && validarFecha(nuevoExamen.fecha)==0);
 
-        do {
+    do {
+            do {
 
-            printf("Ingresa el capitulo de la pregunta: ");
-            mostrarCapitulos(capitulos);
-            scanf(" %d",&idCapitulo);
-            if(verSiExisteCapitulo(idCapitulo)==0){
-                printf("El Capitulo no existe.\n");
-                continue;
-            }
-            printf("Ingresa el subcapitulo de la pregunta: ");
-            mostrarSubCapitulosPorCapitulo(idCapitulo,subCapitulos);
-            scanf(" %d",&idSubCapitulo);
-            if(verSiExisteSubCapitulo(idCapitulo,idSubCapitulo) == 0){
-                printf("El SubCapitulo no existe.\n");
-                continue;
-            }
-        }while (verSiExisteSubCapitulo(idCapitulo,idSubCapitulo) == 0);
-        cantidadTotalPreguntas=contarPreguntasDisponiblesPorSubcapitulo(idCapitulo, idSubCapitulo);
-        preguntasDisponibles(preguntas,idCapitulo,idSubCapitulo);
-        while(nuevoExamen.cantidadPreguntas < cantidadTotalPreguntas != 0){
-            printf("Preguntas Disponibles:\n");
-            mostrarPreguntasDisponiblesSubcapitulo(preguntas);
-            printf("Desea agregar una pregunta al examen? (1-Si,0-No):\n");
-            scanf(" %d",&bandera);
-            if(bandera==0){
-                break;
-            }
-            printf("Ingresa el id de pregunta a agregar:\n ");
-            scanf(" %d",&idPregunta);
-            if(verSiExistePreguntaEnArreglo(idPregunta, preguntas) == 0){
-                printf("La pregunta no existe.\n");
-                continue;
-            }
-            nuevoExamen.idPreguntas[nuevoExamen.cantidadPreguntas]=idPregunta;
-            nuevoExamen.cantidadPreguntas++;
-            eliminarPreguntaElegida(preguntas,idPregunta);
-        }
+                printf("Ingresa el capitulo de la pregunta: ");
+                mostrarCapitulos(capitulos);
+                scanf(" %d",&idCapitulo);
+                if(verSiExisteCapitulo(idCapitulo)==0){
+                    printf("El Capitulo no existe.\n");
+                    continue;
+                }
+                printf("Ingresa el subcapitulo de la pregunta: ");
+                mostrarSubCapitulosPorCapitulo(idCapitulo,subCapitulos);
+                scanf(" %d",&idSubCapitulo);
+                if(verSiExisteSubCapitulo(idCapitulo,idSubCapitulo) == 0){
+                    printf("El SubCapitulo no existe.\n");
+                    continue;
+                }
+            } while (verSiExisteSubCapitulo(idCapitulo,idSubCapitulo) == 0);
+            cantidadTotalPreguntas=contarPreguntasDisponiblesPorSubcapitulo(idCapitulo, idSubCapitulo);
+            preguntasDisponibles(preguntas,idCapitulo,idSubCapitulo);
+            while(nuevoExamen.cantidadPreguntas < cantidadTotalPreguntas != 0){
+                if(hayPreguntasDisponibles(preguntas,idCapitulo,idSubCapitulo)==0){
+                    printf("No hay preguntas disponibles para este subcapitulo.\n");
+                    break;
+                }
+                printf("Preguntas Disponibles:\n");
+                mostrarPreguntasDisponiblesSubcapitulo(preguntas);
 
+                printf("Ingresa el id de pregunta a agregar o 0 para salir:\n ");
+                scanf(" %d",&idPregunta);
+                if(idPregunta==0){
+                    break;
+                }
+                if(verSiExistePreguntaEnArreglo(idPregunta, preguntas) == 0){
+                    printf("La pregunta no existe.\n");
+                    continue;
+                }
+                nuevoExamen.idPreguntas[nuevoExamen.cantidadPreguntas]=idPregunta;
+                nuevoExamen.cantidadPreguntas++;
+                eliminarPreguntaElegida(preguntas,idPregunta);
+            }
+            do{
+                printf("Desea agregar mas preguntas al examen? (1-Si,0-No):\n");
+                scanf(" %d",&bandera);
+            } while (bandera!=1 && bandera!=0);
+
+    } while (bandera!=0);
         guardarExamenEnArchivo(nuevoExamen);
     }
 
